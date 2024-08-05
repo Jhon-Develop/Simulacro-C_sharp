@@ -10,21 +10,47 @@ namespace Veterinary_Center.Models
         public bool BreedingStatus { get; set; } = breedingStatus;
         public string FurLength { get; set; } = furLength;
 
-        public void CastreAnimal()
+        public void CastreAnimal(string name, bool birthingStatus)
         {
-            if (BreedingStatus == false)
+            Cat? cat = VeterinaryClinic.Cats.Find(cat => cat.GetName() == name && cat.BreedingStatus == birthingStatus);
+            if (cat == null)
             {
-                Console.WriteLine("El animal esta castrado no puede volver  ser castrado.");
+                Console.WriteLine("No se encontro el gato.");
             }
-            else if (BreedingStatus == true)
+            else
             {
-                BreedingStatus = false;
-                Console.WriteLine("El animal ha sido castrado.");
+                if (cat.BreedingStatus == false)
+                {
+                    Console.WriteLine("El gato esta castrado no puede volver  ser castrado.");
+                }
+                else if (cat.BreedingStatus == true)
+                {
+                    cat.BreedingStatus = false;
+                    Console.WriteLine("El gato ha sido castrado.");
+                }
             }
         }
-        public void HairDress()
+        public void HairDress(string name, string furLength)
         {
-            FurLength = "short";
+            Cat? cat = VeterinaryClinic.Cats.Find(cat => cat.GetName() == name && cat.FurLength == furLength);
+            if (cat == null)
+            {
+                Console.WriteLine("No se encontro el gato.");
+            }
+            else if (furLength == "sin pelo")
+            {
+
+                Console.WriteLine("El gato no tiene pelo por lo tanto no se le puede ingrear a la peluqueria.");
+            }
+            else if (furLength == "pelo corto")
+            {
+                Console.WriteLine("El gato tiene el pelo corto, no se le puede ingrear a la peluqueria es mejor dejar que le crezca un poco mas.");
+            }
+            else
+            {
+                cat.FurLength = "pelo corto";
+                Console.WriteLine("Bienvenido a la pelucqueria, en 1 hora estara listo su gato.");
+            }
         }
     }
 }

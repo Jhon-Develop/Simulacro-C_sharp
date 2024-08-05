@@ -7,6 +7,8 @@ class Program
     static void Main(string[] args)
     {
         VeterinaryClinic veterinaria = new("Veterinary Center", "Av. de la República, 100, Barcelona, Spain");
+        Dog dog = new(1, "Perro", new DateOnly(2022,01,01), "Perro", "Blanco", 10, true, "Timido", "12045121", "medio", "pelo largo");
+        Cat cat = new(1, "Gato", new DateOnly(2022,01,01), "Gato", "Blanco", 10, true, "pelo largo");
         bool menuOpen = true;
         while (menuOpen)
         {
@@ -15,7 +17,9 @@ class Program
             1. Perros.
             2. Gatos.
             3. Ver animales.
-            4. Salir.
+            4. peluqueria.
+            5. Castración.
+            6. Salir.
             ");
             int option = Setting.InputInt("Elige una opción => ");
             switch (option)
@@ -131,6 +135,70 @@ class Program
                     }
                     break;
                 case 4:
+                    Console.WriteLine($"{Setting.Header("Peluqueria")}");
+                    Console.WriteLine(@"
+                    1. Perros.
+                    2. Gatos.
+                    3. Salir.
+                    ");
+                    int optionPeluqueria = Setting.InputInt("Elige una opción => ");
+                    switch (optionPeluqueria)
+                    {
+                        case 1:
+                            Console.WriteLine($"{Setting.Header("Peluqueria Perros")}");
+                            string hairName = Setting.InputString("Ingrese el nombre del perro => ");
+                            string CoatType = Setting.InputString("Ingrese el largo del pelo del perro (sin pelo, pelo corto, pelo mediano, pelo largo) o enter para dejarlo igual => ");
+                            dog.HairDress(hairName, CoatType);
+                            Setting.FinishOption();
+                            break;
+                        case 2:
+                            Console.WriteLine($"{Setting.Header("Peluqueria Gatos")}");
+                            string furName = Setting.InputString("Ingrese el nombre del gato => ");
+                            string FurLength = Setting.InputString("Ingrese el largo del pelo del gato (sin pelo, pelo corto, pelo mediano, pelo largo) o enter para dejarlo igual => ");
+                            cat.HairDress(furName, FurLength);
+                            Setting.FinishOption();
+                            break;
+                        case 3:
+                            menuOpen = false;
+                            break;
+                        default:
+                            Console.WriteLine($"{Setting.Error("Opción no válida.")}");
+                            break;
+                    }
+                    break;
+                case 5:
+                    Console.WriteLine($"{Setting.Header("Castración")}");
+                    Console.WriteLine(@"
+                    1. Perros.
+                    2. Gatos.
+                    3. Salir.
+                    ");
+                    int optionCastracion = Setting.InputInt("Elige una opción => ");
+                    switch (optionCastracion)
+                    {
+                        case 1:
+                            Console.WriteLine($"{Setting.Header("Castración Perros")}");
+                            string castraDogName = Setting.InputString("Ingrese el nombre del perro => ");
+                            bool birthingDog = Setting.InputBoolean("Ingresa si tu perro esta castrado (true/false) o enter para dejarlo igual => ");
+                            dog.CastreAnimal(castraDogName, birthingDog);
+                            Setting.FinishOption();
+                            break; ;
+                        case 2:
+                            Console.WriteLine($"{Setting.Header("Castración Gatos")}");
+                            string castraCatName = Setting.InputString("Ingrese el nombre del gato => ");
+                            bool birthingCat = Setting.InputBoolean("Ingresa si tu gato esta castrado (true/false) o enter para dejarlo igual => ");
+                            cat.CastreAnimal(castraCatName, birthingCat);
+                            Setting.FinishOption();
+                            break;
+                        case 3:
+                            menuOpen = false;
+                            break; ;
+                        default:
+                            Console.WriteLine($"{Setting.Error("Opción no válida.")}");
+                            break;
+                    }
+                    break;
+                case 6:
                     menuOpen = false;
                     break;
                 default:

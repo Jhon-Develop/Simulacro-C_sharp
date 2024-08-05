@@ -13,21 +13,48 @@ namespace Veterinary_Center.Models
         public string BarkVolume {get; set;} = barkVolume;
         public string CoatType {get; set;} = coatType;
 
-        public void CastreAnimal()
+        public void CastreAnimal(string name, bool birthingStatus)
         {
-            if (BreedingStatus == false)
+            Dog? dog = VeterinaryClinic.Dogs.Find(dog => dog.GetName() == name && dog.BreedingStatus == birthingStatus);
+            if (dog == null)
             {
-                Console.WriteLine("El animal esta castrado no puede volver  ser castrado.");
+                Console.WriteLine("No se encontro el perro.");
             }
-            else if (BreedingStatus == true)
+            else
             {
-                BreedingStatus = false;
-                Console.WriteLine("El animal ha sido castrado.");
+                if (dog.BreedingStatus == false)
+                {
+                    Console.WriteLine("El perro esta castrado no puede volver  ser castrado.");
+                }
+                else if (dog.BreedingStatus == true)
+                {
+                    dog.BreedingStatus = false;
+                    Console.WriteLine("El perro ha sido castrado.");
+                }
             }
         }
-        public void HairDress()
+        public void HairDress(string name, string coatType)
         {
-            CoatType = "Groomed";
+            Dog? dog = VeterinaryClinic.Dogs.Find(dog => dog.GetName() == name && dog.CoatType == coatType);
+            if (dog == null)
+            {
+                Console.WriteLine("No se encontro el perro.");
+            }
+            else if (coatType == "sin pelo")
+            {
+                dog.CoatType = "sin pelo";
+                Console.WriteLine("El perro no tiene pelo por lo tanto no se le puede ingrear a la peluqueria.");
+            }
+            else if (coatType == "pelo corto")
+            {
+                dog.CoatType = "pelo corto";
+                Console.WriteLine("Bienvenido a la pelucqueria, en 1 hora estara listo su perro.");
+            }
+            else
+            {
+                dog.CoatType = "pelo corto";
+                Console.WriteLine("El perro puede ingresar a la peluqueria.");
+            }
         }
     }
 }
