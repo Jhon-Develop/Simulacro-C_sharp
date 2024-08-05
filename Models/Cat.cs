@@ -12,7 +12,15 @@ namespace Veterinary_Center.Models
 
         public void CastreAnimal()
         {
-            BreedingStatus = false;
+            if (BreedingStatus == false)
+            {
+                Console.WriteLine("El animal esta castrado no puede volver  ser castrado.");
+            }
+            else if (BreedingStatus == true)
+            {
+                BreedingStatus = false;
+                Console.WriteLine("El animal ha sido castrado.");
+            }
         }
         public void HairDress()
         {

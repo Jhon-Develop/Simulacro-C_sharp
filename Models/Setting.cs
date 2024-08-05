@@ -22,6 +22,11 @@ namespace Veterinary_Center.Models
             Console.Clear();
         }
 
+        public static string Error(string message)
+        {
+            return $"{Console.ForegroundColor}{ConsoleColor.Red}{message}{Console.ResetColor}";
+        }
+
         public static int InputInt(string prompt)
         {
 
@@ -35,16 +40,17 @@ namespace Veterinary_Center.Models
             return input;
         }
 
-        public static bool InputBool(string prompt)
+        public static bool InputBoolean(string prompt)
         {
             Console.Write(prompt);
-            bool input;
-            while (!bool.TryParse((Console.ReadLine() ?? string.Empty).AsSpan(), out input))
+            string input;
+            while (true)
             {
-                Console.WriteLine("Por favor, ingresa un valor booleano");
-                Console.Write(prompt);
+                input = (Console.ReadLine() ?? "").ToUpper();
+                if (input == "Y") return true;
+                if (input == "F") return false;
+                Console.WriteLine("Por favor, ingresa un valor Y para si o F para no"); return false;
             }
-            return input;
         }
 
         public static byte InputByte(string prompt)
@@ -122,10 +128,6 @@ namespace Veterinary_Center.Models
             return LineSeprator;
         }
 
-        internal static string? InputBool(bool newBreedingStatus)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
 
